@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import PlacesAutocomplete from "@/app/components/PlacesAutocomplete";
 import { useSessionState } from "@/app/hooks/useSessionState";
+import Image from "next/image";
 
 export default function WhatToEatTool() {
   const router = useRouter();
@@ -138,7 +139,7 @@ export default function WhatToEatTool() {
   return (
     <div className="flex flex-col animate-in fade-in duration-700 mt-4">
       <header className="mb-12 text-center max-w-2xl mx-auto">
-        <h1 className="text-4xl font-bold text-[var(--color-qb-text)] mb-4 tracking-tight">Free Nearby Discovery</h1>
+        <h1 className="text-4xl font-bold text-[var(--color-qb-text)] mb-4 tracking-tight">Nearby Discovery</h1>
         <p className="text-lg text-[var(--color-qb-text-muted)] font-medium">
           Discover the best food spots around you based on real Google Maps reviews and high-quality signals.
         </p>
@@ -275,9 +276,9 @@ export default function WhatToEatTool() {
             >
               <div className="h-44 bg-gray-100 relative overflow-hidden">
                 {place.photoUrl ? (
-                  <img 
-                    src={place.photoUrl} 
-                    alt={place.name} 
+                  <img
+                    src={place.photoUrl}
+                    alt={place.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     loading="lazy"
                   />

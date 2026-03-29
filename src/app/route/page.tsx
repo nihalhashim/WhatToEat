@@ -230,6 +230,7 @@ export default function RoutePlannerTool() {
                   <p className="text-sm font-semibold text-[var(--color-qb-text)] pr-6 truncate">{activeWaypoint}</p>
                   <button
                     onClick={removeStopB}
+                    aria-label="Remove stop"
                     className="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
@@ -365,6 +366,7 @@ export default function RoutePlannerTool() {
                         <button
                           onClick={(e) => { e.stopPropagation(); setStopB(shop.name, shop.vicinity); }}
                           title="Add as Stop B"
+                          aria-label={`Add ${shop.name} as Stop`}
                           className={`p-2 rounded-lg transition-all shadow-sm ${activeWaypoint === (shop.vicinity || shop.name)
                             ? 'bg-gray-800 text-white scale-110'
                             : 'bg-white text-gray-700 border border-gray-100 hover:bg-gray-50 active:scale-95'
@@ -385,6 +387,7 @@ export default function RoutePlannerTool() {
                         <button
                           onClick={(e) => { e.stopPropagation(); analyzeInMenu(shop.placeId, shop.name); }}
                           title="AI Analyse Menu"
+                          aria-label={`Analyze menu for ${shop.name}`}
                           className="p-2 bg-white text-gray-700 border border-gray-100 hover:bg-gray-50 rounded-lg transition-all group/ai shadow-sm active:scale-95"
                         >
                           {/* New Sparkle Magnifying Glass Icon from Reference - Increased Thickness */}

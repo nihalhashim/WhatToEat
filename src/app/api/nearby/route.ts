@@ -4,7 +4,20 @@ const mapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
 
 const PLACES_BASE = 'https://places.googleapis.com/v1';
 
-async function geocodeAddress(address: string): Promise<{ lat: number; lng: number } | null> {
+interface Location { lat: number; lng: number }
+interface PlaceResult {
+  placeId: string;
+  name: string;
+  rating: number;
+  userRatingsTotal: number;
+  vicinity: string;
+  openNow: boolean | null;
+  photoUrl: string | null;
+  location: Location | null;
+  types: string[];
+}
+
+async function geocodeAddress(address: string): Promise<Location | null> {
   const res = await fetch(
     `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${mapsApiKey}`
   );
@@ -64,7 +77,7 @@ export async function POST(request: Request) {
     const places = placesData.places || [];
 
     // 3. Format results
-    let results = places.map((place: any) => {
+    let results: PlaceResult[] = places.map((place: any) => {
       const isOpen = place.regularOpeningHours?.openNow ?? null;
       const photoName = place.photos?.[0]?.name;
       const photoUrl = photoName 
@@ -88,14 +101,14 @@ export async function POST(request: Request) {
 
     // 4. Filter
     if (minRating > 0) {
-      results = results.filter((r: any) => r.rating >= minRating);
+      results = results.filter((r) => r.rating >= minRating);
     }
     if (openNow) {
-      results = results.filter((r: any) => r.openNow === true);
+      results = results.filter((r) => r.openNow === true);
     }
 
     // Sort by rating desc
-    results.sort((a: any, b: any) => b.rating - a.rating);
+    results.sort((a, b) => b.rating - a.rating);
 
     return NextResponse.json({ location: { lat, lng }, results });
   } catch (error: any) {

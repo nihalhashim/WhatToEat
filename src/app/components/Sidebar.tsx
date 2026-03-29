@@ -38,8 +38,8 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="w-[72px] h-full bg-white border-r border-[#e3e3e3] flex flex-col items-center py-4 z-40 shrink-0">
-      <nav className="flex-1 w-full space-y-1 mt-4">
+    <aside className="fixed left-0 top-[64px] bottom-0 w-[72px] bg-white border-r border-[#e3e3e3] flex flex-col items-center pt-0 pb-4 z-40">
+      <nav className="flex-1 w-full space-y-1 mt-0">
         {tools.map((tool) => {
           const isActive = pathname === tool.href;
 
@@ -66,11 +66,6 @@ export default function Sidebar() {
         })}
       </nav>
 
-      <div className="pb-4 pt-4 border-t border-gray-100 flex flex-col items-center gap-4">
-        <div className="w-8 h-8 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center text-xs font-bold hover:bg-gray-200 cursor-pointer transition-colors">
-          ?
-        </div>
-      </div>
     </aside>
   );
 }

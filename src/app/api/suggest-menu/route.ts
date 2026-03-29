@@ -6,6 +6,19 @@ const mapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
 
 const PLACES_BASE = 'https://places.googleapis.com/v1';
 
+interface Review {
+  text: { text: string };
+  authorAttribution?: { displayName: string };
+}
+
+interface ParsedItem {
+  dishName: string;
+  description: string;
+  realQuote: string;
+  sentimentScore: number;
+  reviewIndex: number;
+}
+
 /** Follow HTTP redirects for short URLs (maps.app.goo.gl, share.google, etc.) */
 async function expandShortUrl(rawUrl: string): Promise<string> {
   try {
@@ -103,7 +116,7 @@ export async function POST(request: Request) {
     }
 
     restaurantName = detailData.displayName?.text || restaurantName;
-    const reviews: any[] = detailData.reviews || [];
+    const reviews: Review[] = detailData.reviews || [];
 
     if (reviews.length === 0) {
       return NextResponse.json({
@@ -113,7 +126,7 @@ export async function POST(request: Request) {
 
     // 3. Build review text for Gemini with indices for tracking
     const reviewsText = reviews
-      .map((r: any, i: number) => {
+      .map((r: Review, i: number) => {
         const text = r.text?.text || '';
         if (!text) return null;
         return `[Review ${i}]: ${text}`;
@@ -178,7 +191,7 @@ ${reviewsText}`;
     const parsedData = JSON.parse(aiResult.response.text());
 
     // 5. Match indices back to real author names
-    const finalItems = (parsedData.items || []).map((item: any) => {
+    const finalItems = (parsedData.items || []).map((item: ParsedItem) => {
       const originalReview = reviews[item.reviewIndex];
       // authorAttribution.displayName is the correct field in Places API New
       const authorName = originalReview?.authorAttribution?.displayName || 'Anonymous';
