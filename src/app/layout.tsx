@@ -5,7 +5,7 @@ import Sidebar from "./components/Sidebar";
 
 export const metadata: Metadata = {
   title: "WhatToEat",
-  description: "Your Wha tToEat food companion",
+  description: "Your food companion",
 };
 
 export default function RootLayout({
