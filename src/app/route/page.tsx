@@ -189,7 +189,7 @@ export default function RoutePlannerTool() {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-4rem)] animate-in fade-in duration-700 mt-4 overflow-hidden">
+    <div className="flex flex-col h-[calc(100vh-120px)] animate-in fade-in duration-700 mt-4 overflow-hidden">
       <header className="mb-12 text-center max-w-2xl mx-auto shrink-0">
         <h1 className="text-4xl font-bold text-[var(--color-qb-text)] mb-4 tracking-tight">Route Planner</h1>
         <p className="text-lg text-[var(--color-qb-text-muted)] font-medium">
@@ -199,7 +199,7 @@ export default function RoutePlannerTool() {
 
       <div className="flex flex-col lg:flex-row gap-8 flex-1 min-h-0 overflow-hidden">
         {/* Controls Panel */}
-        <div className="lg:w-1/3 flex flex-col gap-4 overflow-y-auto pr-1">
+        <div className="lg:w-1/3 flex flex-col gap-4 overflow-y-auto pr-2 pb-12 custom-scrollbar">
           <div className="qb-panel p-5">
             <h2 className="font-semibold text-[var(--color-qb-text)] mb-4 flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-[var(--color-qb-green)]">
@@ -308,7 +308,7 @@ export default function RoutePlannerTool() {
           )}
 
           {isMounted && !loadingShops && shops.length > 0 && (
-            <div className="flex flex-col gap-3 pb-4 overflow-y-auto">
+            <div className="flex flex-col gap-3 pb-4">
               <div className="flex items-center justify-between px-1">
                 <h3 className="font-bold text-[var(--color-qb-text)] text-xs uppercase tracking-wider">
                   Top Stops Along Route
@@ -430,7 +430,7 @@ export default function RoutePlannerTool() {
         </div>
 
         {/* Map */}
-        <div className="qb-panel flex-1 overflow-hidden relative min-h-[400px] p-0">
+        <div className="qb-panel flex-1 overflow-hidden relative min-h-[400px] h-full p-0">
           <APIProvider apiKey={mapsApiKey}>
             <Map
               defaultCenter={{ lat: 20.5937, lng: 78.9629 }}
