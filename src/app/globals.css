@@ -1,26 +1,31 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-qb-green: #499557;
+  --color-qb-green-hover: #3b7d48;
+  --color-qb-green-light: #e8f5e9;
+  --color-qb-bg: #f9f9f9;
+  --color-qb-border: #e3e3e3;
+  --color-qb-text: #2f2f2f;
+  --color-qb-text-muted: #6b6b6b;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--color-qb-bg);
+    color: var(--color-qb-text);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.qb-panel {
+  @apply bg-white border border-[var(--color-qb-border)] rounded-xl shadow-sm;
+}
+
+.qb-button {
+  @apply bg-[var(--color-qb-green)] hover:bg-[var(--color-qb-green-hover)] text-white font-semibold py-2 px-4 rounded-lg transition-colors active:scale-95;
+}
+
+.qb-input {
+  @apply bg-white border border-[var(--color-qb-border)] rounded-lg py-2 px-3 focus:outline-none focus:border-[var(--color-qb-green)] focus:ring-1 focus:ring-[var(--color-qb-green)] transition-all;
 }
